@@ -19,10 +19,9 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module add_and_subtract(
+module add_and_subtract #(parameter WIDTH=32)(
    a,b,cout,sum,subtract
     );
-    parameter WIDTH = 32;
     input [WIDTH-1:0] a;
     input [WIDTH-1:0] b;
     output cout;
