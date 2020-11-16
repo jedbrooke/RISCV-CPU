@@ -34,7 +34,6 @@ module ID #(parameter WIDTH = 32)(
     ALUSrc,
     clk
     );
-    
     input [31:0] instruction;
     input [WIDTH-1:0] write_data;
     output [WIDTH-1:0] immediate;

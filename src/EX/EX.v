@@ -28,7 +28,7 @@ module EX #(parameter WIDTH=32)(
     input [WIDTH-1:0]   rs2;
     input [WIDTH-1:0]   pc;
     input               alu_src;
-    input [16:0]        alu_func;
+    input [3:0]        alu_func;
    
     output              zero;
     output [WIDTH-1:0]  data1;
