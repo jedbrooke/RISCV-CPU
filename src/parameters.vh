@@ -40,3 +40,12 @@
 
 //U-types
 `define LUI_instr {7'b011_0111,3'b000,7'b000_0000}
+
+//ALU CONTROLS
+`define ALU_AND {4'b0000}
+`define ALU_OR  {4'b0001}
+`define ALU_ADD {4'b0010}
+`define ALU_SUB {4'b0110}
+`define ALU_SLT {4'b1111}
+`define ALU_NOR {4'b1100}
+`define ALU_ERR {4'b1010}

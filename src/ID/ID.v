@@ -29,9 +29,10 @@ module ID #(parameter WIDTH = 32)(
     branch,
     memRead,
     memToReg,
-    ALUOp,
+    ALUControl,
     memWrite,
     ALUSrc,
+    clk
     );
     
     input [31:0] instruction;
@@ -42,11 +43,14 @@ module ID #(parameter WIDTH = 32)(
     output branch;
     output memRead;
     output memToReg;
-    output [1:0] ALUOp;
+    output [3:0] ALUControl;
     output memWrite;
     output ALUSrc;
     
+    input clk;
+    
     wire regWrite;
+    wire [1:0] ALUOp;
     
     control control(
         .opcode(instruction[6:0]),
@@ -67,13 +71,21 @@ module ID #(parameter WIDTH = 32)(
         .rs1_data(rs1_data),
         .rs2_data(rs2_data),
         .regWrite(regWrite),
-        .write_data(write_data)
+        .write_data(write_data),
+        .clk(clk)
     );
     
     immediate_generator #(.WIDTH(WIDTH))immgen (
         .instruction(instruction),
         .immediate(immediate)
     );
+    
+     ALU_CONTROL alu_c(
+        .funct7bit(instruction[30]),
+        .funct3(instruction[14:12]),
+        .ALUOp(ALUOp),
+        .ALU_control(ALUControl)
+     );
     
     
     

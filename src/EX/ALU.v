@@ -21,12 +21,13 @@
 
 
 module ALU #(parameter WIDTH=32)(
-    a,b,control,out,zero,overflow
+    a,b,control,clk,out,zero,overflow
     );
 `include "parameters.vh"
     input [WIDTH-1:0] a;
     input [WIDTH-1:0] b;
-    input [16:0] control; //{opcode,func3,func6/7}as per RISC-V standard
+    input [3:0] control; //ALU control lines from textbook
+    input clk;
     output reg [WIDTH-1:0] out;
     output zero;
     output overflow;
@@ -75,29 +76,19 @@ module ALU #(parameter WIDTH=32)(
     assign LTU = a < b;
     
    
-    always @* begin
+    always @(posedge clk) begin
         case(control)
-            `ADD_instr:  out = ADD;
-            `ADDI_instr: out = ADD;
-            `SUB_instr:  out = SUB;
-            `SLL_instr:  out = SLL;
-            `SLLI_instr: out = SLL;
-            `SRL_instr:  out = SRL;
-            `SRA_instr:  out = SRA;
-            `SRAI_instr: out = SRA;
-            `AND_instr:  out = AND;
-            `ANDI_instr: out = AND;
-            `XOR_instr:  out = XOR;
-            `XORI_instr: out = XOR;
-            `OR_instr:   out = OR ;
-            `ORI_instr:  out = OR ;
-            
+            `ALU_AND: out = AND;
+            `ALU_OR : out = OR ;
+            `ALU_ADD: out = ADD;
+            `ALU_SUB: out = SUB;
+            `ALU_SLT: out = LT;
+            `ALU_NOR: out = ~OR;
             default: out = {WIDTH{1'b0}};
         endcase
     end
     
-    assign overflow =   (control == `ADD_instr || control == `ADDI_instr || control == `SUB_instr) ?
-                        ((control == `ADD_instr || control == `ADDI_instr) ? ADD_OF : SUB_OF): 1'b0;
+    assign overflow = (control == `ALU_ADD || control == `ALU_SUB) ? (control == `ALU_ADD ? ADD_OF : SUB_OF) : 1'b0;
    
      
     assign zero = (out == {WIDTH{1'b0}});              
