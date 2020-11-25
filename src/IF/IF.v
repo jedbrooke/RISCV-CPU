@@ -24,6 +24,7 @@ module IF #(parameter WIDTH = 32) (
     PC_JMP,
     ALU_zero,
     branch,
+    rst,
     clk,
     instruction,
     PC
@@ -32,6 +33,7 @@ module IF #(parameter WIDTH = 32) (
 	input [WIDTH-1:0] PC_JMP;
     input ALU_zero;
     input branch;
+    input rst;
     input clk;
     output [31:0] instruction;
     output reg [WIDTH-1:0] PC;
@@ -42,7 +44,12 @@ module IF #(parameter WIDTH = 32) (
     
     
     always @(posedge clk) begin
-        PC = (branch & ALU_zero) ? PC_JMP : PC + 4;
+        if(rst) begin
+            PC = 0;
+        end
+        else begin
+            PC = (branch & ALU_zero) ? PC_JMP : PC + 4;
+        end
     end    
     
     
