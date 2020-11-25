@@ -38,8 +38,19 @@ module IF #(parameter WIDTH = 32) (
     output [31:0] instruction;
     output reg [WIDTH-1:0] PC;
     
-    reg [31:0] instruction_mem [7:0];
-    assign instruction = instruction_mem[PC];
+    reg [7:0] instruction_mem [0:255];
+    initial begin
+        $readmemb("instr_count.mem", instruction_mem);
+    end
+    
+//    generate
+//        genvar i;
+//        for (i = 0; i < 8; i= i+1) begin
+//            instruction_mem[i] = {i};
+//        end
+//    endgenerate 
+
+    assign instruction = {instruction_mem[PC],instruction_mem[PC+1],instruction_mem[PC+2],instruction_mem[PC+3]};
    
     
     
