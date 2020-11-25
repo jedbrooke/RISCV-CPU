@@ -42,12 +42,39 @@ module IF_tb();
 	    .PC(PC)
    	);
    	
+   	/*
+   	    clock period in test bench is 10ns = 100Mhz
+   	*/
+   	
    	initial begin
+   	   //send reset signal to clear initial values
    	   #5 rst = 1'b1;
    	   #10 rst = 1'b0;
+   	   
+   	   //let PC count up normally for 10 cycles
+   	   #100;
+   	   
+   	   //set branch signal high, ALU signal low, branch should not be taken
+   	   PC_JMP = 32'd20; //jump to instruction 5, at byte adress (4 * 5) = 20
+   	   branch = 1'b1;
+   	   //wait 2 clock cycles to show that it doesn't take the branch
+   	   #20;
+   	   //set ALU_zero high but branch low, branch should still not be taken
+   	   branch = 1'b0;
+   	   ALU_zero = 1'b1;
+   	   //wait 2 clock cycle to show it doesn't take
+   	   #20;
+   	   //set ALU_zero high and branch high so that we take the branch
+   	   branch = 1'b1;
+   	   ALU_zero = 1'b1;
+   	   //should jump to instr 5 at addr 20
+   	   //wait one clock cycle to show it takes the branch
+   	   #10;
+   	   //set branch to 0 to show execution resuming from the branch
+   	   branch = 1'b0;
+   	   //wait 5 more clock cycles
+   	   #50 $finish;
    	end
-   	
-   	always #50 $finish;
    	always #5 clk = ~clk;
 
 
