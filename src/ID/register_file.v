@@ -42,17 +42,17 @@ module register_file #(parameter WIDTH=32) (
     always @(posedge clk) begin
          if (regWrite) begin
             if (rd_addr != 0) begin
-                registers[rd_addr - 1] = write_data; 
+                registers[rd_addr - 1] <= write_data; 
             end 
         end
     end
     
-    always @(posedge rst) begin
+    /*always @(posedge rst) begin
         if (rst) begin
             for (i = 1; i < 32; i=i+1) begin
-                registers[i - 1] = {WIDTH{1'b0}};
+                registers[i - 1] <= {WIDTH{1'b0}};
             end
         end
-    end
+    end*/
     
 endmodule
