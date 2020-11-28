@@ -38,7 +38,7 @@ module immgen_tb(
 
     always begin
         #10 PC = PC+4;
-        instruction = {instruction_mem[PC],instruction_mem[PC+1],instruction_mem[PC+2],instruction_mem[PC+3]}
+        instruction = {instruction_mem[PC],instruction_mem[PC+1],instruction_mem[PC+2],instruction_mem[PC+3]};
     end
 
     always #150 $finish;
