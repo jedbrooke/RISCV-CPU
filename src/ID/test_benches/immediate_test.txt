@@ -1,0 +1,14 @@
+addi x0,x1,0
+slli x1,x2,11
+xori x2,x3,22
+srli x3,x4,33
+srai x4,x5,44
+ori x5,x6,55
+andi x6,x7,66
+lb x7,x8,77
+lh x8,x9,88
+lw x9,x10,99
+ld x10,x11,110
+lbu x11,x12,121
+lhu x12,x13,132
+lwu x13,x14,143

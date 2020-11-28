@@ -23,4 +23,32 @@
 module immgen_tb(
 
     );
+
+    parameter WIDTH = 32;
+
+    reg [31:0] instruction = 0;
+    wire [WIDTH-1:0] immediate;
+
+    reg [WIDTH-1:0] PC = 0; 
+
+    reg [7:0] instruction_mem [0:255];
+    initial begin
+        $readmemb("immediate_test.mem",instruction_mem);
+    end
+
+    always begin
+        #10 PC = PC+4;
+        instruction = {instruction_mem[PC],instruction_mem[PC+1],instruction_mem[PC+2],instruction_mem[PC+3]}
+    end
+
+    always #150 $finish;
+
+
+    immediate_generator #(.WIDTH(WIDTH))immgen (
+        .instruction(instruction),
+        .immediate(immediate)
+    );
+
+    
+
 endmodule
