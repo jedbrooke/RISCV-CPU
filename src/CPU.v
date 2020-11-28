@@ -21,10 +21,11 @@
 
 
 module CPU #(parameter WIDTH = 32) (
-    clk
+    clk,rst
     );
     
     input clk;
+    input rst;
     wire [31:0] instruction;
     wire [WIDTH-1:0] write_data;
     wire [WIDTH-1:0] immediate;
@@ -52,6 +53,7 @@ module CPU #(parameter WIDTH = 32) (
         .ALU_zero(zero),
         .branch(branch),
         .clk(clk),
+        .rst(rst),
         .instruction(instruction),
         .PC(pc_in)
     );
