@@ -42,12 +42,12 @@ module ALU #(parameter WIDTH=32)(
     output overflow;
 
     wire inverse = control[3];
-    wire func3 = control[2:0];
+    wire [2:0] func3 = control[2:0];
   
     
     //shifts
-    wire [WIDTH-1:0] SLL;
-    wire [WIDTH-1:0] SRL;
+    wire [WIDTH-1:0] SL;
+    wire [WIDTH-1:0] SR;
     wire [WIDTH-1:0] SRA;
     
     //arithmetic
@@ -65,9 +65,9 @@ module ALU #(parameter WIDTH=32)(
     wire [WIDTH-1:0] LT;
     wire [WIDTH-1:0] LTU;
     
-    assign SLL = a << b;
+    assign SL = a << b;
     assign SRA = {{WIDTH{a[WIDTH-1]? 1 : 0}},a} >> b;
-    assign SRL = inverse ? SRA : a >> b;
+    assign SR = inverse ? SRA : a >> b;
 
     add_and_subtract #(.WIDTH(WIDTH)) adder (.a(a), .b(inverse ? ~b : b), .cout(overflow), .sum(ADD), .subtract(inverse));
     assign LUI = {a[11:0],b[WIDTH-12:0]};
@@ -108,7 +108,7 @@ module ALU #(parameter WIDTH=32)(
     end
    
     // if it's a comparison set it to the result, else set to if result == 0
-    assign zero = ((func3 == SLT_func3 | func3 == SLTU_func3) ? 
-                    (func3 == SLT_func3) ? LT : LTU
+    assign zero = ((func3 == `SLT_func3 | func3 == `SLTU_func3) ? 
+                    (func3 == `SLT_func3) ? LT : LTU
                     :(out == {WIDTH{1'b0}})) | (control == `ALU_JMP);              
 endmodule

@@ -31,7 +31,7 @@ module control(
     output reg regWrite
     );
     parameter R_OPCODE = 7'b0110011;
-    parameter IA_OPCODe = 7'b0010011;
+    parameter IA_OPCODE = 7'b0010011;
     parameter IL_OPCODE = 7'b0000011;
     parameter S_OPCODE = 7'b0100011;
     parameter B_OPCODE = 7'b1100111;
@@ -86,12 +86,12 @@ module control(
         
         // for each instruction type tell the ALU to do the right thing
         case(opcode) //ALUOp
-            R_OPCODE: ALUOp = alu_op_arithmetic;
-            IA_OPCODE: ALUOp = alu_op_arithmetic;
-            IL_OPCODE: ALUOp = alu_op_ldst;
-            S_OPCODE: ALUOp = alu_op_ldst;
-            B_OPCODE: ALUOp = alu_op_branch;
-            J_OPCODE: ALUOp = alu_op_jmp;
+            R_OPCODE: ALUOp = `ALUOp_arithmetic;
+            IA_OPCODE: ALUOp = `ALUOp_arithmetic;
+            IL_OPCODE: ALUOp = `ALUOp_ldst;
+            S_OPCODE: ALUOp = `ALUOp_ldst;
+            B_OPCODE: ALUOp = `ALUOp_branch;
+            J_OPCODE: ALUOp = `ALUOp_jmp;
             default: ALUOp = 2'b00;
         endcase
         
