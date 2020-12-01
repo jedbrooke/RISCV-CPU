@@ -88,6 +88,8 @@
 `define ALU_OR  {1'b0110}
 `define ALU_AND {1'b0111}
 `define ALU_SLT {4'b0010}
+`define ALU_SGE {4'b1010}
 `define ALU_SLTU{4'b0011}
+`define ALU_SGEU{4'b1011}
 `define ALU_JMP {4'b1110}
 `define ALU_ERR {4'b1111}
