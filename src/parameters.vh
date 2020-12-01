@@ -19,6 +19,15 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+//OPCODES
+`define R_OPCODE  {7'b0110011}
+`define IA_OPCODE {7'b0010011}
+`define IL_OPCODE {7'b0000011}
+`define S_OPCODE  {7'b0100011}
+`define B_OPCODE  {7'b1100111}
+`define U_OPCODE  {7'b0110111}
+`define J_OPCODE  {7'b1101111}
+
 //R-types
 `define ADD_instr {7'b011_0011,3'b000,7'b000_0000}
 `define SUB_instr {7'b011_0011,3'b000,7'b010_0000}
