@@ -35,21 +35,7 @@ module ALU_tb (
     integer i = 0;
 
 
-    reg [15:0] operation [3:0];
-    operation[4'b0000] = 4'b0000; // ALU_ADD 
-    operation[4'b1000] = 4'b1000; // ALU_SUB 
-    operation[4'b0001] = 4'b0001; // ALU_SLL 
-    operation[4'b0100] = 4'b0100; // ALU_XOR 
-    operation[4'b0101] = 4'b0101; // ALU_SRL 
-    operation[4'b1101] = 4'b1101; // ALU_SRA 
-    operation[4'b0110] = 4'b0110; // ALU_OR  
-    operation[4'b0111] = 4'b0111; // ALU_AND 
-    operation[4'b0010] = 4'b0010; // ALU_SLT 
-    operation[4'b1010] = 4'b1010; // ALU_SGE 
-    operation[4'b0011] = 4'b0011; // ALU_SLTU
-    operation[4'b1011] = 4'b1011; // ALU_SGEU
-    operation[4'b1110] = 4'b1110; // ALU_JMP 
-    operation[4'b1111] = 4'b1111; // ALU_ERR 
+    reg [0:3] operation [15:0];
 
 
     ALU #(.WIDTH(WIDTH)) uut (
@@ -63,25 +49,26 @@ module ALU_tb (
     );
 
     initial begin
-        operation[4'b0000] = 4'b0000;
-        operation[4'b1000] = 4'b1000;
-        operation[4'b0001] = 4'b0001;
-        operation[4'b0100] = 4'b0100;
-        operation[4'b0101] = 4'b0101;
-        operation[4'b1101] = 4'b1101;
-        operation[4'b0110] = 4'b0110;
-        operation[4'b0111] = 4'b0111;
-        operation[4'b0010] = 4'b0010;
-        operation[4'b1010] = 4'b1010;
-        operation[4'b0011] = 4'b0011;
-        operation[4'b1011] = 4'b1011;
-        operation[4'b1110] = 4'b1110;
-        operation[4'b1111] = 4'b1111;
+        operation[4'b0000] = 4'b0000; // ALU_ADD 
+        operation[4'b1000] = 4'b1000; // ALU_SUB 
+        operation[4'b0001] = 4'b0001; // ALU_SLL 
+        operation[4'b0100] = 4'b0100; // ALU_XOR 
+        operation[4'b0101] = 4'b0101; // ALU_SRL 
+        operation[4'b1101] = 4'b1101; // ALU_SRA 
+        operation[4'b0110] = 4'b0110; // ALU_OR  
+        operation[4'b0111] = 4'b0111; // ALU_AND 
+        operation[4'b0010] = 4'b0010; // ALU_SLT 
+        operation[4'b1010] = 4'b1010; // ALU_SGE 
+        operation[4'b0011] = 4'b0011; // ALU_SLTU
+        operation[4'b1011] = 4'b1011; // ALU_SGEU
+        operation[4'b1110] = 4'b1110; // ALU_JMP 
+        operation[4'b1111] = 4'b1111; // ALU_ERR 
+
         #10;
         #10 a = 10;
         b = 10;
         for (i = 0; i < 16; i = i + 1) begin
-            #10 control = operation;
+            #10 control = operation[i];
         end
         $finish;
 

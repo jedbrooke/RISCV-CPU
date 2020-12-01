@@ -69,7 +69,7 @@ module ALU #(parameter WIDTH=32)(
     assign SRA = {{WIDTH{a[WIDTH-1]? 1 : 0}},a} >> b;
     assign SR = inverse ? SRA : a >> b;
 
-    add_and_subtract #(.WIDTH(WIDTH)) adder (.a(a), .b(inverse ? ~b : b), .cout(overflow), .sum(ADD), .subtract(inverse));
+    add_and_subtract #(.WIDTH(WIDTH)) adder (.a(a), .b(b), .cout(overflow), .sum(ADD), .subtract(inverse));
     assign LUI = {a[11:0],b[WIDTH-12:0]};
     
     assign XOR = inverse ? ~(a ^ b) : a ^ b;
