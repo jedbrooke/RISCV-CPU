@@ -28,21 +28,38 @@ module ALU_CONTROL(
     input [2:0] funct3;
     input [1:0] ALUOp;
     output reg [3:0] ALU_control;
+    /* 
+        ALU function: [inverse | function]
+        function is just funct3 for arithmetic types
+        inverse turns add into sub
+        logical shift into arithmetic shift
+
+    */
+
+    wire [3:0] alu_control_branch;
+
+    //we want to apply an alu op such that the relational comparison between the operands to the branch will result in a 0 if it is true
+    always @* begin
+        case(funct3)
+            `BEQ_func3: alu_control_branch = `ALU_XOR; //if rs1 and rs2 are equal, rs1^rs2=0
+            `BNE_func3: alu_control_branch = {1'b1,XOR_func3}; //if rs1 and rs2 are not equal, ~(rs1^rs2) = 0
+            `BLT_func3: alu_control_branch = `ALU_SLT;
+            `BGE_func3: alu_control_branch = {1'b1,SLT_func3};
+            `BLTU_func3: alu_control_branch = ALU_SLTU;
+            `BGEU_func3: alu_control_branch = {1'b1,SLTU_func3};
+            default: alu_control_branch = `ALU_XOR;
+        endcase
+    end
+
+
     
     always @* begin
         case(ALUOp)
-            2'b00: ALU_control = `ALU_ADD;
-            2'b01: ALU_control = `ALU_SUB;
-            2'b10: ALU_control = (funct3 == 3'b000) ? 
-                                    (funct7bit ? `ALU_SUB : `ALU_ADD) :
-                                    ((funct3 == 3'b111) ? 
-                                        (`ALU_AND) : 
-                                        ((funct3 == 3'b110) ?
-                                            (`ALU_OR) : 
-                                            (`ALU_ERR)
-                                         )
-                                     );
-           default: ALU_control = `ALU_ERR;
+            `ALUOp_jmp: ALU_control = `ALU_JMP;
+            `ALUOp_branch: ALU_control = `ALU_SUB;
+            `ALUOp_arithmetic: ALU_control = {funct7bit,funct3};
+            `ALUOp_ldst: ALU_control = `ALU_ADD;
+
         endcase
     end
     
