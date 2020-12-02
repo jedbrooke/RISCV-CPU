@@ -1,64 +1,49 @@
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
-addi x1,x0,50
-add x1,x1,x1
-sub x1,x1,x1
+;assume each register is initialized to it's index number
+;rtypes
+add x1,x2,x3
+sub x1,x2,x3
+sll x1,x2,x3
+xor x1,x2,x3
+srl x1,x2,x3
+sra x1,x2,x3
+or x1,x2,x3
+and x1,x2,x3
+
+;itypes arithmetic
+addi x1,x2,1
+slli x1,x2,1
+xori x1,x2,1
+srli x1,x2,1
+srai x1,x2,1
+ori x1,x2,1
+andi x1,x2,1
+
+;load and store byte
+sb x30,x0,0
+lb x1,x0,0
+
+;none of these branches should be taken
+addi x1,x0,1
+beq x1,x0,0
+bne x0,x0,0
+blt x0,x0,0
+bge x0,x1,0
+bltu x0,x0,0
+bgeu x0,x1,0
+
+;all of these branches should be taken
+beq x0,x0,+2
 add x0,x0,x0
+bne x0,x0,+2
+add x0,x0,x0
+blt x0,x0,+2
+add x0,x0,x0
+bge x0,x1,+2
+add x0,x0,x0
+bltu x0,x0,+2
+add x0,x0,x0
+bgeu x0,x1,+2
+add x0,x0,x0
+
+;jump back to start
+jal x0,0

@@ -28,7 +28,7 @@ module ALU #(parameter WIDTH=32)(
     input [WIDTH-1:0] b;
     input [3:0] control;
     /* 
-        ALU function: [inverse | function]
+        ALU function: {inverse | function}
         function is just funct3 for arithmetic types
         inverse turns add into sub
         logical shift into arithmetic shift
