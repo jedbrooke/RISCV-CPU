@@ -83,7 +83,8 @@ module CPU #(parameter WIDTH = 32) (
     	.zero(zero),
     	.data1(data1),
     	.data2(data2),
-    	.pc_out(pc_out)
+    	.pc_out(pc_out),
+    	.clk(clk)
     );
     
     MEM #(.WIDTH(WIDTH)) MEM_stage(

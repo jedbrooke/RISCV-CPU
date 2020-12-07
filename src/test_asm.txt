@@ -1,5 +1,6 @@
 ;assume each register is initialized to it's index number
 ;rtypes
+add x0,x0,x0
 add x1,x2,x3
 sub x1,x2,x3
 sll x1,x2,x3

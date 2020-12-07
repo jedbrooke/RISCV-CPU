@@ -38,24 +38,21 @@ module IF #(parameter WIDTH = 32) (
     output [31:0] instruction;
     output reg [WIDTH-1:0] PC;
     
-    reg [7:0] instruction_mem [0:255];
+    reg [7:0] instruction_mem [0:1023];
     initial begin
-        $readmemb("instr_count.mem", instruction_mem);
+        $readmemb("test_asm.mem", instruction_mem);
     end
 
     assign instruction = {instruction_mem[PC],instruction_mem[PC+1],instruction_mem[PC+2],instruction_mem[PC+3]};
    
     
     
-    always @(posedge clk) begin
-        if(rst) begin
-            PC = 0;
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            PC <= 0;
+        end else begin
+            PC <= (branch & ALU_zero) ? PC_JMP : PC + 4;
         end
-        else begin
-            PC = (branch & ALU_zero) ? PC_JMP : PC + 4;
-        end
-    end    
-    
-    
+    end
     
 endmodule
