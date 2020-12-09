@@ -32,6 +32,7 @@ module ID #(parameter WIDTH = 32)(
     ALUControl,
     memWrite,
     ALUSrc,
+    memControl,
     clk
     );
     input [31:0] instruction;
@@ -45,6 +46,7 @@ module ID #(parameter WIDTH = 32)(
     output [3:0] ALUControl;
     output memWrite;
     output ALUSrc;
+    output [2:0] memControl;
     
     input clk;
     
@@ -85,6 +87,13 @@ module ID #(parameter WIDTH = 32)(
         .ALUOp(ALUOp),
         .ALU_control(ALUControl)
      );
+     
+     mem_signals ms(
+        .opcode(instruction[6:0]),
+        .func3(instruction[14:12]),
+        .memControl(memControl)
+     );
+     
     
     
     

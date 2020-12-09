@@ -49,6 +49,20 @@
 `define BLTU_func3 {3'b110}
 `define BGEU_func3 {3'b111}
 
+//I-types loads
+`define LB_func3 {3'b000}
+`define LH_func3 {3'b001}
+`define LW_func3 {3'b010}
+`define LD_func3 {3'b011}
+`define LBU_func3 {3'b100}
+`define LHU_func3 {3'b101}
+`define LWU_func3 {3'b110}
+
+//S-types
+`define SB_func3 {3'b000}
+`define SH_func3 {3'b001}
+`define SW_func3 {3'b010}
+`define SD_func3 {3'b011}
 
 //U-types
 `define LUI_instr {7'b011_0111,3'b000,7'b000_0000}
@@ -74,3 +88,13 @@
 `define ALU_SGEU{4'b1011}
 `define ALU_JMP {4'b1110}
 `define ALU_ERR {4'b1111}
+
+
+//memControl
+`define MEM_BYTE {3'b000}
+`define MEM_BYTE_U {3'b100}
+`define MEM_HALFWORD {3'b001}
+`define MEM_HALFWORD_U {3'b101}
+`define MEM_WORD {3'b010}
+`define MEM_WORD_U {3'b110}
+`define MEM_DWORD {3'b011}

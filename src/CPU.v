@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module CPU #(parameter WIDTH = 32) (
+module CPU #(parameter WIDTH = 64) (
     clk,rst
     );
     
@@ -37,6 +37,7 @@ module CPU #(parameter WIDTH = 32) (
     wire [3:0] ALUControl;
     wire memWrite;
     wire ALUSrc;
+    wire [2:0] memControl;
 
     wire [WIDTH-1:0] pc;
     wire zero;
@@ -44,6 +45,7 @@ module CPU #(parameter WIDTH = 32) (
     wire [WIDTH-1:0] data2;
     wire [WIDTH-1:0] pc_in;
     wire [WIDTH-1:0] pc_out;
+    
 
     wire [WIDTH-1:0] data_read;
 
@@ -70,6 +72,7 @@ module CPU #(parameter WIDTH = 32) (
     	.ALUControl(ALUControl),
     	.memWrite(memWrite),
     	.ALUSrc(ALUSrc),
+    	.memControl(memControl),
     	.clk(clk)
     );
     
@@ -88,10 +91,11 @@ module CPU #(parameter WIDTH = 32) (
     );
     
     MEM #(.WIDTH(WIDTH)) MEM_stage(
-        .address(data1),
+        .byte_address(data1),
         .data_write(data2),
         .MemWrite(memWrite),
         .MemRead(memRead),
+        .memControl(memControl),
         .clk(clk),
         .data_read(data_read)
     );

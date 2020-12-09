@@ -85,7 +85,6 @@ module control(
             `J_OPCODE: ALUOp = `ALUOp_jmp;
             default: ALUOp = 2'b00;
         endcase
-        
     end
     
     
