@@ -46,13 +46,13 @@ NEXT2:
 blt x0 x1 NEXT3
 add x0 x0 x0
 NEXT3:
-bge x0 x1 NEXT4
+bge x0 x0 NEXT4
 add x0 x0 x0
 NEXT4:
 bltu x0 x1 NEXT5
 add x0 x0 x0
 NEXT5:
-bgeu x0 x1 NEXT6
+bgeu x0 x0 NEXT6
 add x0 x0 x0
 NEXT6:
 ;jump back to start

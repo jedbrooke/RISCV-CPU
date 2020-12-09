@@ -56,7 +56,7 @@ module ALU_CONTROL(
     always @* begin
         case(ALUOp)
             `ALUOp_jmp: ALU_control = `ALU_JMP;
-            `ALUOp_branch: ALU_control = `ALU_SUB;
+            `ALUOp_branch: ALU_control = alu_control_branch;
             `ALUOp_arithmetic: ALU_control = {funct7bit,funct3};
             `ALUOp_ldst: ALU_control = `ALU_ADD;
 

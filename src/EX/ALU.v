@@ -72,7 +72,7 @@ module ALU #(parameter WIDTH=32)(
     add_and_subtract #(.WIDTH(WIDTH)) adder (.a(a), .b(b), .cout(overflow), .sum(ADD), .subtract(inverse));
     assign LUI = {a[11:0],b[WIDTH-12:0]};
     
-    assign XOR = inverse ? ~(a ^ b) : a ^ b;
+    assign XOR = inverse ? ~|(a ^ b) : a ^ b;
     assign OR  = inverse ? ~(a | b) : a | b;
     assign AND = inverse ? ~(a & b) : a & b;
     
@@ -86,7 +86,7 @@ module ALU #(parameter WIDTH=32)(
     assign LTU = inverse ? ~(a < b) : a < b;
     
    
-    always @(posedge clk) begin
+    always @* begin
         case(func3)
             `ADD_func3: out <= ADD;
             `SL_func3 : out <= SL;

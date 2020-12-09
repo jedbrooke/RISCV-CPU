@@ -24,28 +24,9 @@
 `define IA_OPCODE {7'b0010011}
 `define IL_OPCODE {7'b0000011}
 `define S_OPCODE  {7'b0100011}
-`define B_OPCODE  {7'b1100111}
+`define B_OPCODE  {7'b1100011}
 `define U_OPCODE  {7'b0110111}
 `define J_OPCODE  {7'b1101111}
-
-//R-types
-`define ADD_instr {7'b011_0011,3'b000,7'b000_0000}
-`define SUB_instr {7'b011_0011,3'b000,7'b010_0000}
-`define SLL_instr {7'b011_0011,3'b001,7'b000_0000}
-`define XOR_instr {7'b011_0011,3'b100,7'b000_0000}
-`define SRL_instr {7'b011_0011,3'b101,7'b000_0000}
-`define SRA_instr {7'b011_0011,3'b101,7'b000_0000}
-`define OR_instr  {7'b011_0011,3'b110,7'b000_0000}
-`define AND_instr {7'b011_0011,3'b111,7'b000_0000}
-
-//I-types
-`define ADDI_instr {7'b001_0011,3'b000,7'b000_0000}
-`define SLLI_instr {7'b001_0011,3'b001,7'b000_0000}
-`define XORI_instr {7'b001_0011,3'b100,7'b000_0000}
-`define SRLI_instr {7'b001_0011,3'b101,7'b000_0000}
-`define SRAI_instr {7'b001_0011,3'b001,7'b010_0000}
-`define ORI_instr  {7'b001_0011,3'b110,7'b000_0000}
-`define ANDI_instr {7'b001_0011,3'b111,7'b000_0000}
 
 //func3 bits:
 //R/IA types
@@ -73,10 +54,10 @@
 `define LUI_instr {7'b011_0111,3'b000,7'b000_0000}
 
 //ALUOp controls
-`define ALUOp_arithmetic {2'b10}
-`define ALUOp_branch {2'b01}
-`define ALUOp_ldst {2'b00}
-`define ALUOp_jmp {2'b11}
+`define ALUOp_arithmetic    {2'b10}
+`define ALUOp_branch        {2'b01}
+`define ALUOp_ldst          {2'b00}
+`define ALUOp_jmp           {2'b11}
 
 //ALU CONTROLS
 `define ALU_ADD {4'b0000}

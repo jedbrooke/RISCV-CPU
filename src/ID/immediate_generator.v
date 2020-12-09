@@ -24,15 +24,9 @@ module immediate_generator #(parameter WIDTH=32)(
     input [31:0] instruction,
     output reg [WIDTH-1:0] immediate
     );
-    
+    `include "parameters.vh"
     wire [6:0] opcode = instruction[6:0];
-    parameter R_OPCODE  = 7'b0110011;
-    parameter IL_OPCODE = 7'b0000011; //load instrcutions
-    parameter IA_OPCODE = 7'b0010011; //arithmetic immdetaite instructions
-    parameter S_OPCODE  = 7'b0100011;
-    parameter B_OPCODE  = 7'b1100111;
-    parameter U_OPCODE  = 7'b0110111;
-    parameter J_OPCODE  = 7'b1101111;
+    
     
     wire [WIDTH-1:0] R_imm = {WIDTH{1'b0}};
     wire [WIDTH-1:0] I_imm = {{(WIDTH-12){instruction[31]}},instruction[31:20]};
@@ -43,13 +37,13 @@ module immediate_generator #(parameter WIDTH=32)(
     
     always @* begin
         case(opcode)
-            R_OPCODE:  immediate = R_imm;
-            IA_OPCODE: immediate = I_imm;
-            IL_OPCODE: immediate = I_imm;
-            S_OPCODE:  immediate = S_imm;
-            B_OPCODE:  immediate = B_imm;
-            U_OPCODE:  immediate = U_imm;
-            J_OPCODE:  immediate = J_imm;
+            `R_OPCODE:  immediate = R_imm;
+            `IA_OPCODE: immediate = I_imm;
+            `IL_OPCODE: immediate = I_imm;
+            `S_OPCODE:  immediate = S_imm;
+            `B_OPCODE:  immediate = B_imm;
+            `U_OPCODE:  immediate = U_imm;
+            `J_OPCODE:  immediate = J_imm;
             
             default: immediate = {WIDTH{1'b0}};
         endcase

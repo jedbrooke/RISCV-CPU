@@ -21,6 +21,7 @@ andi x1,x2,1
 
 ;load and store byte
 sb x30,x0,0
+add x0,x0,x0
 lb x1,x0,0
 
 ;none of these branches should be taken

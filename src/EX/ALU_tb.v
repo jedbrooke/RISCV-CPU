@@ -61,6 +61,8 @@ module ALU_tb (
         operation[4'b1010] = 4'b1010; // ALU_SGE 
         operation[4'b0011] = 4'b0011; // ALU_SLTU
         operation[4'b1011] = 4'b1011; // ALU_SGEU
+        operation[4'b1100] = 4'b1100; // ~ALU_XOR
+        operation[4'b1101] = 4'b1101; // unused
         operation[4'b1110] = 4'b1110; // ALU_JMP 
         operation[4'b1111] = 4'b1111; // ALU_ERR 
 

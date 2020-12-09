@@ -34,15 +34,14 @@ module MEM #(parameter WIDTH = 32) (
 	input MemWrite;
 	input MemRead;
 	input clk;
-	output reg [WIDTH-1:0] data_read;
+	output [WIDTH-1:0] data_read;
 	
 	reg [WIDTH-1:0] data_memory [0:1023];
 	
+	assign  data_read = data_memory[address];
+	
 	always @(posedge clk) begin
-	   if (MemRead) begin
-	       data_read = data_memory[address];
-	   end
-	   else if (MemWrite) begin
+	   if (MemWrite) begin
 	       data_memory[address] = data_write;
 	   end
 	end
