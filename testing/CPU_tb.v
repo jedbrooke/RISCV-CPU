@@ -26,12 +26,18 @@ module CPU_tb(
     
     reg clk = 0;
     reg rst = 1;
-    
+    integer f,i;
     CPU uut(.clk(clk), .rst(rst));
     
     initial begin
        #4 rst = 0;
-       #1500 $finish; 
+       #11200;
+       f = $fopen("output.txt","w");
+       for (i = 0; i < 1023; i = i + 1) begin
+            $display("%h\n",uut.MEM_stage.data_memory[i]);
+            $fwrite(f,"%h\n",uut.MEM_stage.data_memory[i]);
+       end
+       $finish; 
     end
     
     

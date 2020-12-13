@@ -20,14 +20,14 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module CPU #(parameter WIDTH = 32) (
-    clk,rst
+module CPU #(parameter WIDTH = 64) (
+    clk,rst,write_data
     );
     
     input clk;
     input rst;
     wire [31:0] instruction;
-    wire [WIDTH-1:0] write_data;
+    output [WIDTH-1:0] write_data;
     wire [WIDTH-1:0] immediate;
     wire [WIDTH-1:0] rs1_data;
     wire [WIDTH-1:0] rs2_data;

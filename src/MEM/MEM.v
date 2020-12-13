@@ -38,11 +38,16 @@ module MEM #(parameter WIDTH = 32) (
 	
 	reg [WIDTH-1:0] data_memory [0:1023];
 	
-	assign  data_read = data_memory[address];
+	initial begin
+	   $readmemh("data_in_2.mem",data_memory);
+	end
+	
+	wire [63:0] word_address = address >> 3; //divide by 8 for 8 bytes in double word 
+	assign  data_read = data_memory[word_address];
 	
 	always @(posedge clk) begin
 	   if (MemWrite) begin
-	       data_memory[address] = data_write;
+	       data_memory[word_address] = data_write;
 	   end
 	end
 	

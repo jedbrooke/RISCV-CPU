@@ -80,8 +80,7 @@ module ID #(parameter WIDTH = 32)(
     );
     
      ALU_CONTROL alu_c(
-        .funct7bit(instruction[30]),
-        .funct3(instruction[14:12]),
+        .instruction(instruction),
         .ALUOp(ALUOp),
         .ALU_control(ALUControl)
      );

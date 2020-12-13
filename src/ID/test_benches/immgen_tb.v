@@ -24,7 +24,7 @@ module immgen_tb(
 
     );
 
-    parameter WIDTH = 32;
+    parameter WIDTH = 64;
 
     reg [31:0] instruction = 0;
     wire [WIDTH-1:0] immediate;
@@ -33,7 +33,7 @@ module immgen_tb(
 
     reg [7:0] instruction_mem [0:255];
     initial begin
-        $readmemb("immediate_test.mem",instruction_mem);
+        $readmemh("code.mem",instruction_mem);
     end
 
     always begin
