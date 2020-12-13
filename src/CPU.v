@@ -97,6 +97,7 @@ module CPU #(parameter WIDTH = 64) (
         .MemRead(memRead),
         .memControl(memControl),
         .clk(clk),
+        .rst(rst),
         .data_read(data_read)
     );
 
