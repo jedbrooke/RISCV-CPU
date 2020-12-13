@@ -42,6 +42,7 @@ module MEM #(parameter WIDTH = 64) (
 	
 	initial begin
 	   //read in the file
+	    $readmemh("data_in.mem",data_memory);
 	end
 	
 	wire [WIDTH-1:0] address = byte_address >> 3; //divide byte address by 8 to get dword address
@@ -83,6 +84,11 @@ module MEM #(parameter WIDTH = 64) (
 	reg [(2*WIDTH)-1:0] write_temp_halfword;
 	reg [(2*WIDTH)-1:0] write_temp_word;
 	reg [(2*WIDTH)-1:0] write_temp_dword;
+	
+
+	
+	wire [63:0] word_address = address >> 3; //divide by 8 for 8 bytes in double word 
+	assign  data_read = data_memory[word_address];
 	
 	always @(posedge clk) begin //writes must be 64bit aligned, bytes can go anywhere, but if a word, halfword, or doubleword exceeds the bounds of the lower dword of it's address it will get cut off
 	   if (MemWrite) begin

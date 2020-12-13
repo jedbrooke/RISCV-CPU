@@ -21,11 +21,10 @@
 
 
 module ALU_CONTROL(
-    funct7bit,funct3,ALUOp,ALU_control
+    instruction,ALUOp,ALU_control
     );
 `include "parameters.vh"
-    input funct7bit;
-    input [2:0] funct3;
+    input [31:0] instruction;
     input [1:0] ALUOp;
     output reg [3:0] ALU_control;
     /* 
@@ -35,7 +34,8 @@ module ALU_CONTROL(
         logical shift into arithmetic shift
 
     */
-
+    wire funct7bit = instruction[30];
+    wire [2:0] funct3 = instruction[14:12];
     reg [3:0] alu_control_branch;
 
     //we want to apply an alu op such that the relational comparison between the operands to the branch will result in a 0 if it is true
@@ -57,7 +57,7 @@ module ALU_CONTROL(
         case(ALUOp)
             `ALUOp_jmp: ALU_control = `ALU_JMP;
             `ALUOp_branch: ALU_control = alu_control_branch;
-            `ALUOp_arithmetic: ALU_control = {funct7bit,funct3};
+            `ALUOp_arithmetic: ALU_control = {(instruction[6:0] == `R_OPCODE) ? funct7bit : 1'b0,funct3};
             `ALUOp_ldst: ALU_control = `ALU_ADD;
 
         endcase
