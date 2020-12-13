@@ -1,14 +1,14 @@
 01 20 00 93 // addi x1, x0, 0x012
-00 C0 D0 93 // srli x1, x1, 12
+00 C0 90 93 // slli x1, x1, 12
 34 50 00 93 // addi x1, x0, 0x345
-00 C0 D0 93 // srli x1, x1, 12
+00 C0 90 93 // slli x1, x1, 12
 67 80 00 93 // addi x1, x0, 0x678
-00 C0 D0 93 // srli x1, x1, 12
+00 C0 90 93 // slli x1, x1, 12
 9A B0 00 93 // addi x1, x0, 0x9ab
-00 C0 D0 93 // srli x1, x1, 12
+00 C0 90 93 // slli x1, x1, 12
 CD E0 00 93 // addi x1, x0, 0xcde
-00 40 D0 93 // srli x1, x1, 4
-00 F0 80 93 // addi x1, x1, 0xf
+00 40 90 93 // slli x1, x1, 4
+00 F0 80 93 // addi x1, x1s, 0xf
 00 00 B0 23 // sd x0, 0(x1)
 00 00 00 93 // addi x1, x0, 0
 00 00 01 13 // addi x2, x0, 0
