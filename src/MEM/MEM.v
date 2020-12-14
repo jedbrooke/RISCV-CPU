@@ -39,12 +39,16 @@ module MEM #(parameter WIDTH = 64) (
 	input clk;
 	input rst;
 	output reg [WIDTH-1:0] data_read;
-	
-	reg [WIDTH-1:0] data_memory [0:1023];
+	parameter mem_size = 1024;
+	reg [WIDTH-1:0] data_memory [0:mem_size-1];
+	integer i;
 	
 	initial begin
 	   //read in the file
-	    $readmemh("data_in.mem",data_memory);
+	   for(i = 0; i < mem_size; i = i + 1) begin
+	       data_memory[i] = {{WIDTH{1'b0}}}; 
+	   end
+	   $readmemh("data_in.mem",data_memory);
 	end
 	
 	wire [WIDTH-4:1] dword_addr = byte_address[WIDTH-1:3];

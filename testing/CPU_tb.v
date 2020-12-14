@@ -30,16 +30,19 @@ module CPU_tb(
     CPU uut(.clk(clk), .rst(rst));
     
     initial begin
-       #4 rst = 0;
-       #11200;
-       f = $fopen("output.txt","w");
-       for (i = 0; i < 1023; i = i + 1) begin
-            $display("%h\n",uut.MEM_stage.data_memory[i]);
-            $fwrite(f,"%h\n",uut.MEM_stage.data_memory[i]);
-       end
-       $finish; 
+       #4 rst = 0;      
     end
-    
+    always @(posedge clk) begin
+        if(uut.instruction == 32'hFFFFFFFF) begin
+           f = $fopen("output.mem","w");
+           for (i = 0; i < 1023; i = i + 1) begin
+                $display("%h",uut.MEM_stage.data_memory[i]);
+                $fwrite(f,"%h",uut.MEM_stage.data_memory[i]);
+           end
+           $fclose(f);
+           $finish; 
+        end
+    end
     
     always #5 clk = ~clk;
 endmodule
