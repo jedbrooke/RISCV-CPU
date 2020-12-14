@@ -78,9 +78,9 @@ module ALU #(parameter WIDTH=32)(
     
     
     wire [WIDTH:0] a_LT_temp;
-    add_and_subtract #(.WIDTH(WIDTH)) a_temp_adder(.a(a), .b(1 << (WIDTH - 1)), .cout(a_LT_temp[WIDTH]), .sum(a_LT_temp[WIDTH-1:0]), .subtract(1'b0));
+    add_and_subtract #(.WIDTH(WIDTH)) a_temp_adder(.a(a), .b({1,{(WIDTH-1){1'b0}}}), .cout(a_LT_temp[WIDTH]), .sum(a_LT_temp[WIDTH-1:0]), .subtract(1'b0));
     wire [WIDTH:0] b_LT_temp;
-    add_and_subtract #(.WIDTH(WIDTH)) b_temp_adder(.a(b), .b(1 << (WIDTH - 1)), .cout(b_LT_temp[WIDTH]), .sum(b_LT_temp[WIDTH-1:0]), .subtract(1'b0));
+    add_and_subtract #(.WIDTH(WIDTH)) b_temp_adder(.a(b), .b({1,{(WIDTH-1){1'b0}}}), .cout(b_LT_temp[WIDTH]), .sum(b_LT_temp[WIDTH-1:0]), .subtract(1'b0));
     
     assign LT = inverse ? ~(a_LT_temp < b_LT_temp) : a_LT_temp < b_LT_temp;
     assign LTU = inverse ? ~(a < b) : a < b;

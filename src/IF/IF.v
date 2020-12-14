@@ -40,7 +40,7 @@ module IF #(parameter WIDTH = 32) (
     
     reg [7:0] instruction_mem [0:1023];
     initial begin
-        $readmemh("loadstore.mem", instruction_mem);
+        $readmemh("byteoffset.mem", instruction_mem);
     end
 
     assign instruction = {instruction_mem[PC],instruction_mem[PC+1],instruction_mem[PC+2],instruction_mem[PC+3]};

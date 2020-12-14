@@ -85,9 +85,9 @@ module MEM #(parameter WIDTH = 64) (
 	always @(posedge clk) begin
 		if (MemWrite) begin
 			case(memControl)
-				`MEM_BYTE: temp_write = {data_write[7:0],read_dword[63:8]};
-				`MEM_HALFWORD: temp_write = {data_write[15:0],read_dword[63:16]};
-				`MEM_WORD: temp_write = {data_write[31:0],read_dword[63:32]};
+				`MEM_BYTE: temp_write = {data_write[7:0],read_dword[55:0]};
+				`MEM_HALFWORD: temp_write = {data_write[15:0],read_dword[47:0]};
+				`MEM_WORD: temp_write = {data_write[31:0],read_dword[31:0]};
 				`MEM_DWORD: temp_write = data_write;
 				default: temp_write = read_dword; //default case don't overwrite anything
 			endcase

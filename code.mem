@@ -13,4 +13,5 @@
 00 85 85 93 //addi x11, x11, 8
 FF F0 80 93 //addi x1, x1, -1
 FD 9F F0 6F //jal x0, -40
-06 40 0A 13 //addi x20, x0, 100  
+06 40 0A 13 //addi x20, x0, 100
+FF FF FF FF // EXIT

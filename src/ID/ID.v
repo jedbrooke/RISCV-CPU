@@ -53,6 +53,12 @@ module ID #(parameter WIDTH = 32)(
     wire regWrite;
     wire [1:0] ALUOp;
     
+    always @(posedge clk) begin
+        if(instruction == 32'hFFFFFFFF) begin
+            $finish;
+        end
+    end
+    
     control control(
         .opcode(instruction[6:0]),
         .branch(branch),
