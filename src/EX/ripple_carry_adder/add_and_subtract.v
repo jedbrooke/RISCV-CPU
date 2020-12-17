@@ -18,7 +18,7 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
+(* KEEP_HIERARCHY = "YES" *) 
 module add_and_subtract #(parameter WIDTH=32)(
    a,b,cout,sum,subtract
     );

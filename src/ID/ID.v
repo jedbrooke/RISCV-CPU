@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+(* KEEP_HIERARCHY = "YES" *) 
 module ID #(parameter WIDTH = 32)(
     instruction,
     write_data,
@@ -33,7 +33,8 @@ module ID #(parameter WIDTH = 32)(
     memWrite,
     ALUSrc,
     memControl,
-    clk
+    clk,
+    rst
     );
     input [31:0] instruction;
     input [WIDTH-1:0] write_data;
@@ -49,6 +50,7 @@ module ID #(parameter WIDTH = 32)(
     output [2:0] memControl;
     
     input clk;
+    input rst;
     
     wire regWrite;
     wire [1:0] ALUOp;
@@ -73,7 +75,8 @@ module ID #(parameter WIDTH = 32)(
         .rs2_data(rs2_data),
         .regWrite(regWrite),
         .write_data(write_data),
-        .clk(clk)
+        .clk(clk),
+        .rst(rst)
     );
     
     immediate_generator #(.WIDTH(WIDTH))immgen (

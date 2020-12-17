@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+(* KEEP_HIERARCHY = "YES" *) 
 module immediate_generator #(parameter WIDTH=32)(
     input [31:0] instruction,
     output reg [WIDTH-1:0] immediate

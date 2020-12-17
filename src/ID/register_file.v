@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+(* KEEP_HIERARCHY = "YES" *) 
 module register_file #(parameter WIDTH=32) (
     rs1_addr, rs2_addr, rd_addr, rs1_data, rs2_data, write_data, regWrite, rst, clk
     );
@@ -28,8 +28,8 @@ module register_file #(parameter WIDTH=32) (
     input [4:0] rd_addr;
     input [WIDTH-1:0] write_data;
     input regWrite;
-    output [WIDTH-1:0] rs1_data;
-    output [WIDTH-1:0] rs2_data;
+    output reg [WIDTH-1:0] rs1_data;
+    output reg [WIDTH-1:0] rs2_data;
     input rst;
     input clk;
     integer i;
@@ -42,8 +42,15 @@ module register_file #(parameter WIDTH=32) (
         end
     end
     
-    assign rs1_data = (rs1_addr == 0) ? {WIDTH{1'b0}} : registers[rs1_addr - 1]; //if address is 0, send in hardcoded 0
-    assign rs2_data = (rs2_addr == 0) ? {WIDTH{1'b0}} : registers[rs2_addr - 1]; //otherwise subtract 1 from the address, since reg 1 is at addr 0, reg 2 is at 1, etc
+    always @* begin
+        if (rst) begin
+            rs1_data <= {WIDTH{1'b0}};
+            rs2_data <= {WIDTH{1'b0}};
+        end else begin
+            rs1_data <= (rs1_addr == 0) ? {WIDTH{1'b0}} : registers[rs1_addr - 1]; //if address is 0, send in hardcoded 0
+            rs2_data <= (rs2_addr == 0) ? {WIDTH{1'b0}} : registers[rs2_addr - 1]; //otherwise subtract 1 from the address, since reg 1 is at addr 0, reg 2 is at 1, etc
+        end
+    end
     
     always @(posedge clk) begin
          if (regWrite) begin

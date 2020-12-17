@@ -19,15 +19,16 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+(* KEEP_HIERARCHY = "YES" *) 
 module CPU #(parameter WIDTH = 64) (
-    clk,rst,write_data
+    clk,rst,write_data,overflow
     );
     
-    input clk;
-    input rst;
+    input wire clk;
+    input wire rst;
     wire [31:0] instruction;
-    output [WIDTH-1:0] write_data;
+    output wire [WIDTH-1:0] write_data;
+    output wire overflow;
     wire [WIDTH-1:0] immediate;
     wire [WIDTH-1:0] rs1_data;
     wire [WIDTH-1:0] rs2_data;
@@ -73,7 +74,8 @@ module CPU #(parameter WIDTH = 64) (
     	.memWrite(memWrite),
     	.ALUSrc(ALUSrc),
     	.memControl(memControl),
-    	.clk(clk)
+    	.clk(clk),
+    	.rst(rst)
     );
     
     EX #(.WIDTH(WIDTH)) EX_stage(
@@ -87,7 +89,9 @@ module CPU #(parameter WIDTH = 64) (
     	.data1(data1),
     	.data2(data2),
     	.pc_out(pc_out),
-    	.clk(clk)
+    	.clk(clk),
+    	.rst(rst),
+    	.overflow(overflow)
     );
     
     MEM #(.WIDTH(WIDTH)) MEM_stage(
@@ -105,6 +109,7 @@ module CPU #(parameter WIDTH = 64) (
         .data_read(data_read),
         .alu_data(data1),
         .memToReg(memToReg),
+        .clk(clk),
         .writeback_data(write_data)
     );
     

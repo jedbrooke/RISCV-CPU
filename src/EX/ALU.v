@@ -19,9 +19,9 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+(* KEEP_HIERARCHY = "YES" *) 
 module ALU #(parameter WIDTH=32)(
-    a,b,control,clk,out,zero,overflow
+    a,b,control,clk,rst,out,zero,overflow
     );
 `include "parameters.vh"
     input [WIDTH-1:0] a;
@@ -37,6 +37,7 @@ module ALU #(parameter WIDTH=32)(
 
     */
     input clk;
+    input rst;
     output reg [WIDTH-1:0] out;
     output zero;
     output overflow;
@@ -87,18 +88,20 @@ module ALU #(parameter WIDTH=32)(
     
    
     always @* begin
-        case(func3)
-            `ADD_func3: out <= ADD;
-            `SL_func3 : out <= SL;
-            `SR_func3 : out <= SR;
-            `XOR_func3: out <= XOR;
-            `SRA_func3: out <= SRA;
-            `OR_func3 : out <= OR;
-            `AND_func3: out <= AND;
-            `SLT_func3: out <= LT;
-            `SLTU_func3: out <= LTU;
-            default: out = {WIDTH{1'b0}};
-        endcase
+        if (rst) begin
+            out <= {WIDTH{1'b0}};
+        end else begin
+            case(func3)
+                `ADD_func3: out <= ADD;
+                `SL_func3 : out <= SL;
+                `SR_func3 : out <= SR;
+                `XOR_func3: out <= XOR;
+                `OR_func3 : out <= OR;
+                `AND_func3: out <= AND;
+                `SLT_func3: out <= LT;
+                default: out <= {WIDTH{1'b0}};
+            endcase
+        end
     end
 
     always @* begin

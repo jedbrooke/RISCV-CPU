@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+(* KEEP_HIERARCHY = "YES" *) 
 module control(
     input [6:0] opcode,
     output reg branch,
@@ -38,7 +38,7 @@ module control(
             `IL_OPCODE: ALUSrc = 1'b1;
             `S_OPCODE: ALUSrc = 1'b1;
             `B_OPCODE: ALUSrc = 1'b0;
-            default: ALUSrc = ALUSrc;       
+            default: ALUSrc = ALUSrc;
         endcase
         
         // only write from mem to reg on loads
@@ -54,6 +54,7 @@ module control(
             `IL_OPCODE: regWrite = 1'b1;
             `S_OPCODE: regWrite = 1'b0;
             `B_OPCODE: regWrite = 1'b0;
+            default: regWrite = 1'b0;
         endcase
         
         // only read from mem on load instructions

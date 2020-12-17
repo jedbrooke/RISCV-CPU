@@ -19,19 +19,23 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+(* KEEP_HIERARCHY = "YES" *) 
 module WB #(parameter WIDTH = 32) (
     data_read,
     alu_data,
     memToReg,
-    writeback_data
+    writeback_data,
+    clk
     );
 
 	input [WIDTH-1:0] data_read;
 	input [WIDTH-1:0] alu_data;
 	input memToReg;
-	output [WIDTH-1:0] writeback_data;
+	input clk;
+	output reg [WIDTH-1:0] writeback_data;
 
-	assign writeback_data = memToReg ? data_read : alu_data;
+	always @* begin
+	   writeback_data <= memToReg ? data_read : alu_data;
+	end
 
 endmodule

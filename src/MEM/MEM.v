@@ -19,7 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+(* KEEP_HIERARCHY = "YES" *) 
 module MEM #(parameter WIDTH = 64) (
     byte_address,
     data_write,
@@ -39,19 +39,19 @@ module MEM #(parameter WIDTH = 64) (
 	input clk;
 	input rst;
 	output reg [WIDTH-1:0] data_read;
-	parameter mem_size = 1024;
-	reg [WIDTH-1:0] data_memory [0:mem_size-1];
+	`define mem_size 1024
+	reg [WIDTH-1:0] data_memory [0:`mem_size-1];
 	integer i;
 	
 	initial begin
 	   //read in the file
-	   for(i = 0; i < mem_size; i = i + 1) begin
+	   for(i = 0; i < `mem_size; i = i + 1) begin
 	       data_memory[i] = {{WIDTH{1'b0}}}; 
 	   end
 	   $readmemh("data_in.mem",data_memory);
 	end
 	
-	wire [WIDTH-4:1] dword_addr = byte_address[WIDTH-1:3];
+	wire [WIDTH-4:0] dword_addr = byte_address[WIDTH-1:3];
 	wire [3:0] byte_offset = byte_address[2:0]; //byte 0-7 of the dword 
 	wire [2:0] halfword_offset = byte_address[2:1]; //halfword 0-3
 	wire word_offset = byte_address[2];
@@ -83,18 +83,22 @@ module MEM #(parameter WIDTH = 64) (
             endcase
 		end
 	end
-	reg [WIDTH-1:0] temp_write;
-
+    reg [WIDTH-1:0] temp_write;
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+	       temp_write = {{WIDTH{1'b0}}};
+	    end else begin
+            case(memControl[1:0])
+                `MEM_BYTE: temp_write = {data_write[7:0],read_dword[WIDTH-9:0]};
+                `MEM_HALFWORD: temp_write = {data_write[15:0],read_dword[WIDTH-17:0]};
+                `MEM_WORD: temp_write = {data_write[31:0],read_dword[WIDTH-33:0]};
+                `MEM_DWORD: temp_write = data_write;
+            endcase
+        end
+    end
 	//writes must be 64-bit aligned, bytes, halfwords, words, dwords must all start at the beginning of a dword, at an address % 8 = 0
 	always @(posedge clk) begin
-		if (MemWrite) begin
-			case(memControl)
-				`MEM_BYTE: temp_write = {data_write[7:0],read_dword[55:0]};
-				`MEM_HALFWORD: temp_write = {data_write[15:0],read_dword[47:0]};
-				`MEM_WORD: temp_write = {data_write[31:0],read_dword[31:0]};
-				`MEM_DWORD: temp_write = data_write;
-				default: temp_write = read_dword; //default case don't overwrite anything
-			endcase
+	    if (MemWrite) begin		    
 			data_memory[dword_addr] = temp_write;
 		end
 	end	
