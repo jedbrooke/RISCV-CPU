@@ -1,8 +1,8 @@
 # RISCV CPU
 
-A Functional RISCV core implemented in Verilog rtl<br>
-![schematic]("src/schematic.jpg")<br>
-More information in the [presentation]("https://github.com/jedbrooke/RISCV-CPU/blob/master/RISC%20V%20CPU.pdf").
+A Functional RISCV core implemented in Verilog rtl.<br>
+![schematic](src/schematic.jpg)<br>
+More information in the [presentation](https://github.com/jedbrooke/RISCV-CPU/blob/master/RISC%20V%20CPU.pdf).
 Supported instructions:
 Most of RV32/64I
  * Shifts
@@ -14,7 +14,7 @@ Most of RV32/64I
  * Loads**
  * Stores**
 
-*see the [reference sheet]("https://github.com/jedbrooke/RISCV-CPU/blob/master/RISCV-reference-sheet.pdf") for detailed list. green boxes are implemented, red boxes are not.
+*see the [reference sheet](https://github.com/jedbrooke/RISCV-CPU/blob/master/RISCV-reference-sheet.pdf) for detailed list. green boxes are implemented, red boxes are not.
 
 **see comments on [MEM.v](https://github.com/jedbrooke/RISCV-CPU/blob/master/src/MEM/MEM.v#L64) (lines 64 and 99) for details on memory alignment.
 
