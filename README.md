@@ -1,6 +1,7 @@
 # RISCV CPU
 
 A Functional RISCV core implemented in Verilog rtl<br>
+![schematic]("src/schematic.jpg")<br>
 More information in the [presentation]("https://github.com/jedbrooke/RISCV-CPU/blob/master/RISC%20V%20CPU.pdf").
 Supported instructions:
 Most of RV32/64I
